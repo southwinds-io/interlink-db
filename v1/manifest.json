@@ -1,0 +1,275 @@
+{
+  "dbVersion": "1",
+  "description": "database release 1",
+  "commandsPath" : "command",
+  "queriesPath" : "query",
+  "dbProvider": "pgsql",
+  "create": {
+    "description": "create the database for the first time",
+    "commands": [
+      "create-db",
+      "install-extensions"
+    ]
+  },
+  "deploy": {
+    "description": "deploy the database objects in a new database",
+    "commands": [
+      "deploy-schema",
+      "deploy-fxs",
+      "install-models"
+    ]
+  },
+  "upgrade": {
+    "description": "upgrade an existing database to the new version",
+    "prepare": "drop-fxs",
+    "alter": "upgrade-tables",
+    "deploy": "deploy-fxs"
+  },
+  "commands": [
+    {
+      "name": "create-db",
+      "description": "creates the database and user",
+      "transactional": false,
+      "asAdmin": true,
+      "useDb": false,
+      "scripts": [
+        {
+          "name": "create the database",
+          "file": "db.sql",
+          "vars": [
+            {
+              "name": "DB_NAME",
+              "fromConf": "Db.Name"
+            }
+          ]
+        },
+        {
+          "name": "create the database user",
+          "file": "user.sql",
+          "vars": [
+            {
+              "name": "DB_USER",
+              "fromConf": "Db.Username"
+            },
+            {
+              "name": "DB_PWD",
+              "fromConf": "Db.Password"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "install-extensions",
+      "description": "installs the database extensions",
+      "transactional": true,
+      "asAdmin": true,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "install hstore extension",
+          "file": "hstore.sql",
+          "vars": []
+        },
+        {
+          "name": "install intarray extension",
+          "file": "intarray.sql",
+          "vars": []
+        }
+      ]
+    },
+    {
+      "name": "deploy-schema",
+      "description": "deploy schemas",
+      "transactional": true,
+      "asAdmin": false,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "sql tables",
+          "file": "tables.sql",
+          "vars": []
+        }
+      ]
+    },
+    {
+      "name": "deploy-fxs",
+      "description": "deploy functions",
+      "transactional": true,
+      "asAdmin": false,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "json schema validation",
+          "file": "json.sql",
+          "vars": []
+        },
+        {
+          "name": "general data validation",
+          "file": "validation.sql",
+          "vars": []
+        },
+        {
+          "name": "set functions",
+          "file": "set.sql",
+          "vars": []
+        },
+        {
+          "name": "get functions",
+          "file": "get.sql",
+          "vars": []
+        },
+        {
+          "name": "delete functions",
+          "file": "delete.sql",
+          "vars": []
+        },
+        {
+          "name": "general queries",
+          "file": "queries.sql",
+          "vars": []
+        },
+        {
+          "name": "tree management",
+          "file": "tree.sql",
+          "vars": []
+        },
+        {
+          "name": "tagging",
+          "file": "tags.sql",
+          "vars": []
+        },
+        {
+          "name": "encryption",
+          "file": "keyman.sql",
+          "vars": []
+        },
+        {
+          "name": "service events",
+          "file": "ses.sql",
+          "vars": []
+        }
+      ]
+    },
+    {
+      "name": "install-models",
+      "description": "create information models",
+      "transactional": true,
+      "asAdmin": false,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "universal model",
+          "file": "u.sql",
+          "vars": []
+        },
+        {
+          "name": "artisan model",
+          "file": "art.sql",
+          "vars": []
+        }
+      ]
+    },
+    {
+      "name": "drop-fxs",
+      "description": "drop functions",
+      "transactional": true,
+      "asAdmin": false,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "drop existing functions",
+          "file": "dropfxs.sql",
+          "vars": []
+        }
+      ]
+    },
+    {
+      "name": "upgrade-tables",
+      "description": "upgrade the database tables",
+      "transactional": true,
+      "asAdmin": true,
+      "useDb": true,
+      "scripts": [
+        {
+          "name": "upgrade tables",
+          "file": "upgrade.sql",
+          "vars": []
+        }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "name": "version-history",
+      "description": "get the information in the version tracking table",
+      "file": "get_version_history.sql"
+    },
+    {
+      "name": "current-version",
+      "description": "get the current application and database version",
+      "file": "get_current_version.sql"
+    },
+    {
+      "name": "db-version",
+      "description": "get the database version for the specified application version",
+      "file": "get_db_version.sql",
+      "vars": [
+        {
+          "name": "APP_VERSION",
+          "description": "the version of the application matching the database version",
+          "fromInput": "appVersion"
+        }
+      ]
+    },
+    {
+      "name": "svc-events",
+      "description": "shows service up & down events",
+      "file": "svc_events_threshold.sql",
+      "vars": [
+        {
+          "name": "PLATFORM",
+          "description": "the name of the platform under which the service is running",
+          "fromInput": "platform"
+        },
+        {
+          "name": "SERVICE",
+          "description": "the name of the service to check for downtime",
+          "fromInput": "service"
+        },
+        {
+          "name": "FACET",
+          "description": "the name of the service aspect on which to report",
+          "fromInput": "facet"
+        },
+        {
+          "name": "THRESHOLD",
+          "description": "the facet count under which to start counting a time interval",
+          "fromInput": "threshold"
+        }
+      ]
+    },
+    {
+      "name": "svc-instance-count",
+      "description": "shows a chronological list of events with the count of instances which are up and running",
+      "file": "svc_instance_count.sql",
+      "vars": [
+        {
+          "name": "PLATFORM",
+          "description": "the name of the platform under which the service is running",
+          "fromInput": "platform"
+        },
+        {
+          "name": "SERVICE",
+          "description": "the name of the service to check for downtime",
+          "fromInput": "service"
+        },
+        {
+          "name": "FACET",
+          "description": "the name of the service aspect on which to report",
+          "fromInput": "facet"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+/* customise header colour */
+div.head {
+    background: #fffb00;
+    color: #2347a1;
+}
+/* customise alternate row colour */
+div.alt {
+    background: #faf198;
+}
+/* define the header style */
+.header {
+    padding: 1px;
+    text-align: center;
+    background: #2347a1;
+    color: white;
+    font-size: 20px;
+}
+/* define the footer style */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #2347a1;
+    color: white;
+    text-align: center;
+}

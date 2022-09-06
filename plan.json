@@ -1,0 +1,9 @@
+{
+  "releases": [
+    {
+      "dbVersion": "1",
+      "appVersion": "1.0.0",
+      "path": "v1"
+    }
+  ]
+}
