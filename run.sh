@@ -1,6 +1,6 @@
 # Deploy Interlink Database Schemas on a PostgreSQL container
 
-docker rm -f ilink > /dev/null
+docker rm -f ilink-db > /dev/null
 
 echo "checking port 5432 is available for Interlink database process"
 lsof -i:5432 | grep LISTEN
@@ -11,7 +11,7 @@ if [ $RESULT -eq 0 ]; then
 fi
 
 echo "creating Interlink database container"
-docker run --name ilink -it -d -p 5432:5432 -e POSTGRES_PASSWORD=p0stgr3s "postgres"
+docker run --name ilink-db -it -d -p 5432:5432 -e POSTGRES_PASSWORD=p0stgr3s "postgres"
 
 echo "configuring DbMan for managing the interlink database"
 dbman config use -n interlink
