@@ -540,7 +540,7 @@ VALUES ('ART_SPEC_FX_ATTR_FX', -- key
         'The name of the function in the Artisan package that defines a specific API.', -- description
         'string', -- type
         true, -- required
-        102, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_SPEC_FX)
         'onix' -- changed_by
        );
 
@@ -550,7 +550,7 @@ VALUES ('ART_SPEC_FX_ATTR_USER', -- key
         'The user name required to retrieve the package storing the Artisan registry.', -- description
         'string', -- type
         false, -- required
-        102, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_SPEC_FX)
         'onix' -- changed_by
        );
 
@@ -560,7 +560,7 @@ VALUES ('ART_SPEC_FX_ATTR_PWD', -- key
         'The password required to retrieve the package storing the Artisan registry.', -- description
         'string', -- type
         false, -- required
-        102, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_SPEC_FX)
         'onix' -- changed_by
        );
 
@@ -570,7 +570,7 @@ VALUES ('ART_SPEC_FX_ATTR_VERBOSE', -- key
         'A flag indicating if the execution log should be verbose.', -- description
         'boolean', -- type
         false, -- required
-        102, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_SPEC_FX)
         'onix' -- changed_by
        );
 
@@ -580,6 +580,6 @@ VALUES ('ART_SPEC_FX_ATTR_CONTAINERISED', -- key
         'A flag indicating if the execution should occur in a runtime container.', -- description
         'boolean', -- type
         false, -- required
-        102, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_SPEC_FX)
         'onix' -- changed_by
        );
