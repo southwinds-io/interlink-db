@@ -570,7 +570,7 @@ VALUES ('ART_SPEC_FX_ATTR_VERBOSE', -- key
         'A flag indicating if the execution log should be verbose.', -- description
         'boolean', -- type
         false, -- required
-        101, -- item_type_id (ART_FX)
+        102, -- item_type_id (ART_FX)
         'onix' -- changed_by
        );
 
