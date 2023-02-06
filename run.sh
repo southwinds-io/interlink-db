@@ -10,8 +10,10 @@ if [ $RESULT -eq 0 ]; then
   exit 1
 fi
 
+# NOTE: using postgres 15 fails as the release revokes the CREATE permission from all users except a database owner
+# from the public (or default) schema, therefore using 14 until these schemas are revised
 echo "creating Interlink database container"
-docker run --name ilink-db -it -d -p 5432:5432 -e POSTGRES_PASSWORD=p0stgr3s "postgres"
+docker run --name ilink-db -it -d -p 5432:5432 -e POSTGRES_PASSWORD=p0stgr3s "postgres:14"
 
 echo "configuring DbMan for managing the interlink database"
 dbman config use -n interlink
